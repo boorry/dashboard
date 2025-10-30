@@ -14,5 +14,38 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    
+    <dependency>
+        <groupId>org.postgresql</groupId>
+        <artifactId>postgresql</artifactId>
+        <version>42.7.3</version> 
+    </dependency>
+
   </dependencies>
+
+    
+  <build>
+   <plugins>
+     <plugin>
+       <groupId>org.apache.maven.plugins</groupId>
+       <artifactId>maven-compiler-plugin</artifactId>
+       <version>3.11.0</version>
+       <configuration>
+         <release>11</release>
+       </configuration>
+     </plugin>
+
+     <plugin>
+       <groupId>org.codehaus.mojo</groupId>
+       <artifactId>exec-maven-plugin</artifactId>
+       <version>3.1.0</version>
+       <configuration>
+         <mainClass>com.dash.App</mainClass>
+       </configuration>
+     </plugin>
+    </plugins>
+   </build>
+
+
+
 </project>
