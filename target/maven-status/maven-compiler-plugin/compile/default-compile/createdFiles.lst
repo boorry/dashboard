@@ -1,2 +1,4 @@
-com/dash/DatabaseConnection.class
+com/dash/model/Agent.class
+com/dash/dao/DatabaseConnection.class
 com/dash/App.class
+com/dash/dao/AgentDAO.class

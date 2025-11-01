@@ -1,4 +1,4 @@
-package com.dash;
+package com.dash.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
