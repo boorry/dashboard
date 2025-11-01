@@ -1,4 +1,6 @@
 com/dash/model/Agent.class
 com/dash/dao/DatabaseConnection.class
+com/dash/dao/Statut.class
 com/dash/App.class
 com/dash/dao/AgentDAO.class
+com/dash/dao/Activite.class
