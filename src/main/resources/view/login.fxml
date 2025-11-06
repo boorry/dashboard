@@ -1,18 +1,24 @@
 <!-- view/login.fxml -->
-<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-      spacing="10" alignment="CENTER" style="-fx-padding: 20;">
-
-    <Label text="Connexion Agent" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
-
-    <TextField fx:id="txtLogin" promptText="Login"/>
-    <PasswordField fx:id="txtPassword" promptText="Mot de passe"/>
-
+<VBox xmlns="http://javafx.com/javafx" 
+        xmlns:fx="http://javafx.com/fxml" 
+        fx:controller="com.dash.controller.LoginController"
+        spacing="15" alignment="CENTER" 
+        style="-fx-padding: 30; -fx-background-color: #ecf0f1;">
+    
+    <Label text="Connexion Agent" style="-fx-font-size: 20; -fx-font-weight: bold;"/>
+    
+    <TextField fx:id="txtLogin" promptText="Login" prefWidth="200"/>
+    <PasswordField fx:id="txtPassword" promptText="Mot de passe" prefWidth="200"/>
+    
     <Button fx:id="btnLogin" text="Se connecter" onAction="#handleLogin"
-            style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+            style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 14;"/>
+    
+    <Label fx:id="lblError" style="-fx-text-fill: red;"/>
 
-    <Label fx:id="lblError" style="-fx-text-fill: red;" />
+
 </VBox>

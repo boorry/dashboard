@@ -4,11 +4,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/**
- * Hello world!
- *
- */
-public class App 
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+
+public class App extends Application
 {
     public static void main( String[] args )
     {
@@ -20,8 +22,21 @@ public class App
          } catch(SQLException e){
              System.err.println("Connection failed: " + e.getMessage());
          }
-
+        
+        launch(args);
 
        // connect.getConnection();
     }
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/login.fxml"));
+        Scene scene = new Scene(loader.load());
+        stage.setScene(scene);
+        stage.setTitle("Login - Dashboard Productivité");
+        stage.setResizable(false);
+        stage.show();
+    }
+
+
 }
