@@ -1,4 +1,4 @@
-package com.dash.dao;
+package com.dash.model;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -10,27 +10,27 @@ public class Activite{
     private LocalDateTime debut;
     private LocalDateTime fin;
 
-    public int getID (){
+    public int getId (){
         return id;
     }
 
-    public void setID (){
+    public void setId (int id){
         this.id = id;
     }
 
-    public int getAgentID (){
+    public int getAgentId (){
         return agentID;
     }
 
-    public void setAgentID (){
+    public void setAgentId (int agentID){
         this.agentID = agentID;
     }
 
-    public int getStatutID () {
+    public int getStatutId () {
         return statutID;
     }
 
-    public void setStatutID (){
+    public void setStatutId (int statutID){
         this.statutID = statutID;
     }
 
@@ -38,7 +38,7 @@ public class Activite{
         return debut;
     }
 
-    public void setDebut (){
+    public void setDebut (LocalDateTime debut){
         this.debut = debut;
     }
 
@@ -46,7 +46,7 @@ public class Activite{
         return fin;
     } 
 
-    public void setFin () {
+    public void setFin (LocalDateTime fin) {
         this.fin = fin;
     }
    
