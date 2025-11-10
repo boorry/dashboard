@@ -4,7 +4,7 @@ public class Statut{
     private int id;
     private String libelle;
 
-    public int getID (){
+    public int getId (){
         return id;
     }
 
