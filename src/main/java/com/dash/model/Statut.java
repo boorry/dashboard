@@ -1,4 +1,4 @@
-package com.dash.dao;
+package com.dash.model;
 
 public class Statut{
     private int id;
@@ -20,7 +20,15 @@ public class Statut{
         this.libelle = libelle;
     }
 
-    public Statut (){
+    @Override
+    public String toString(){
+        return libelle;
+    }
 
+    public Statut (){ }
+
+    public Statut(int id, String libelle){
+        this.id = id;
+        this.libelle = libelle;
     }
 }
