@@ -8,12 +8,6 @@ import java.sql.*;
 
 public class AgentDAO {
 
-    public static void main(String[] args) {
-        AgentDAO dao = new AgentDAO();
-        Agent a = dao.login("agent1", "demony11");
-        System.out.println(a != null ? "Connecté : " + a.getPrenom() : "ÉCHEC");
-    }
-
     public Agent login (String login, String password) {
         String sql = "SELECT * FROM agents WHERE login = ? AND password = ?";
         System.out.println(sql);
