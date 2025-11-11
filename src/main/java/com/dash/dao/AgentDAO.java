@@ -8,18 +8,22 @@ import java.sql.*;
 
 public class AgentDAO {
 
+    public static void main(String[] args) {
+        AgentDAO dao = new AgentDAO();
+        Agent a = dao.login("agent1", "demony11");
+        System.out.println(a != null ? "Connecté : " + a.getPrenom() : "ÉCHEC");
+    }
+
     public Agent login (String login, String password) {
         String sql = "SELECT * FROM agents WHERE login = ? AND password = ?";
-        
-        DatabaseConnection connect = new DatabaseConnection();
-         
-        try (Connection conn = connect.getConnection()) {
+        System.out.println(sql);
 
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-             
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+         
             pstmt.setString(1, login);
-            pstmt.setString(2, password); // À hasher plus tard !
-            
+            pstmt.setString(2, password);
+        
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 Agent agent = new Agent();
@@ -27,12 +31,15 @@ public class AgentDAO {
                 agent.setLogin(rs.getString("login"));
                 agent.setNom(rs.getString("nom"));
                 agent.setPrenom(rs.getString("prenom"));
+                System.out.println("Connexion réussie pour " + agent.getPrenom());
                 return agent;
+            } else {
+                System.out.println("Aucun agent trouvé avec ces identifiants.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null; // Échec
+        return null;
     }
 
     public AgentDAO () {}

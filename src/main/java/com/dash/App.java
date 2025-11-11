@@ -1,5 +1,6 @@
 package com.dash;
 import com.dash.dao.*;
+import com.dash.model.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -14,6 +15,7 @@ public class App extends Application
 {
     public static void main( String[] args )
     {
+        
         System.out.println( "Hello World!" );
         DatabaseConnection connect = new DatabaseConnection();
         

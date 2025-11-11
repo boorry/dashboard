@@ -23,6 +23,12 @@ public class LoginController {
     private void handleLogin() {
         String login = txtLogin.getText().trim();
         String password = txtPassword.getText();
+        
+        System.out.println("=== DEBUG LOGIN ===");
+        System.out.println("Login tapé : '" + login + "'");
+        System.out.println("Password tapé : '" + password + "'");
+        System.out.println("Longueur password : " + password.length());
+        System.out.println("===================");
 
         if (login.isEmpty() || password.isEmpty()) {
             lblError.setText("Veuillez remplir tous les champs.");
