@@ -45,7 +45,9 @@
         </HBox>
     </VBox>
 
-    <!-- Statistiques rapides -->
+<!--
+    Statistiques rapides
+    -->
     <GridPane hgap="20" vgap="10" style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10;">
         <Label text="Temps total aujourd'hui :" GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
         <Label fx:id="lblTotalTime" text="00:00:00" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
@@ -54,12 +56,48 @@
         <Label fx:id="lblCallCount" text="0" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
     </GridPane>
 
-    <!-- Graphique (à remplir plus tard) -->
+<!--
+    A travailler 
     <VBox style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10;">
         <Label text="Répartition des activités" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
         <Pane fx:id="chartContainer" prefHeight="200" style="-fx-background-color: #ecf0f1; -fx-background-radius: 5;">
             <Label text="Graphique en cours de chargement..." alignment="CENTER" wrapText="true"/>
         </Pane>
     </VBox>
+-->
+
+<!-- === HISTORIQUE === -->
+    <VBox style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10; -fx-spacing: 10;">
+        <Label text="Historique des activités" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+        <TableView fx:id="tableHistorique" prefHeight="200">
+            <columns>
+                <TableColumn text="Début" prefWidth="120">
+                    <cellValueFactory><PropertyValueFactory property="debutStr" /></cellValueFactory>
+                </TableColumn>
+
+                <TableColumn text="Fin" prefWidth="120">
+                    <cellValueFactory><PropertyValueFactory property="finStr" /></cellValueFactory>
+                </TableColumn>
+
+                <TableColumn text="Statut" prefWidth="100">
+                    <cellValueFactory><PropertyValueFactory property="statut" /></cellValueFactory>
+                </TableColumn>
+                
+                <TableColumn text="Durée" prefWidth="80">
+                    <cellValueFactory><PropertyValueFactory property="duree" /></cellValueFactory>
+                 </TableColumn>
+            </columns>
+        </TableView>
+    </VBox>
+
+    <!-- === GRAPHIQUE === -->
+    <VBox style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10; -fx-spacing: 10;">
+        <Label text="Répartition des activités" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+        <PieChart fx:id="pieChart" prefHeight="250"/>
+    </VBox>
+
+    <!-- === BOUTON EXPORT === -->
+    <Button text="Exporter en CSV" onAction="#exportCSV" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold;"/>
+
 
 </VBox>
