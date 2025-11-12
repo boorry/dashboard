@@ -86,4 +86,14 @@ public class ActiviteDAO {
         return map;
     }
 
+     public String getStatut(int statutId) {
+         try (var c = DatabaseConnection.getConnection();
+              var ps = c.prepareStatement("SELECT libelle FROM statuts WHERE id = ?")) {
+             ps.setInt(1, statutId);
+             var rs = ps.executeQuery();
+             return rs.next() ? rs.getString(1) : "Inconnu";
+         } catch (Exception e) { return "Erreur"; }
+     }
+
+
 }
