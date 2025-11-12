@@ -11,6 +11,9 @@ public class Activite{
     private LocalDateTime fin;
 
     private String debutStr, finStr, statut, duree;
+    private String libelle;
+
+    private static final DateTimeFormatter TIME_FMT = DateTimeFormatter.ofPattern("HH:mm:ss");
 
 
     public int getId (){
@@ -64,24 +67,44 @@ public class Activite{
         return agentId + " " + statutId + " " + dateFormatter(debut) + " au " + dateFormatter(fin);    
     }
     
-    public String getDebutStr() { 
+    public String getDebutStr_OLD() { 
         return formatTime(debut); 
     }
 
-    public String getFinStr() { 
+    public String getFinStr_OLD() { 
         return fin != null ? formatTime(fin) : "En cours"; 
     }
-/*
-    public String getStatut() {
-        try (var c = DatabaseConnection.getConnection();
-             var ps = c.prepareStatement("SELECT libelle FROM statuts WHERE id = ?")) {
-            ps.setInt(1, statutId);
-            var rs = ps.executeQuery();
-            return rs.next() ? rs.getString(1) : "Inconnu";
-        } catch (Exception e) { return "Erreur"; }
+
+    public String getLibelle() { 
+        return libelle; 
     }
-*/
+
+    public void setLibelle(String libelle) { 
+        this.libelle = libelle; 
+    }
+
+    public String getDebutStr() { 
+        return debut.format(TIME_FMT); 
+    }
+
+    public String getFinStr() { 
+        return fin != null ? fin.format(TIME_FMT) : "En cours"; 
+    }
+
+    public String getStatut() { 
+        return libelle; 
+    }
+
     public String getDuree() {
+        LocalDateTime end = fin != null ? fin : LocalDateTime.now();
+        long seconds = java.time.Duration.between(debut, end).getSeconds();
+        long h = seconds / 3600;
+        long m = (seconds % 3600) / 60;
+        long s = seconds % 60;
+        return String.format("%02d:%02d:%02d", h, m, s);
+    }
+
+    public String getDuree_OLD() {
         long seconds = java.time.Duration.between(debut, fin != null ? fin : LocalDateTime.now()).getSeconds();
         long h = seconds / 3600;
         long m = (seconds % 3600) / 60;

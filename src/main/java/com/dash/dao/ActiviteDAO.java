@@ -64,8 +64,10 @@ public class ActiviteDAO {
                 if (rs.getTimestamp("fin") != null) {
                     a.setFin(rs.getTimestamp("fin").toLocalDateTime());
                 }
+                a.setLibelle(rs.getString("libelle"));
                 list.add(a);
             }
+            
         } catch (SQLException e) { e.printStackTrace(); }
         return list;
     }

@@ -4,6 +4,7 @@ package com.dash.controller;
 //import com.dash.dao.ActiviteDAO;
 //import com.dash.dao.StatutDAO;
 import com.dash.dao.*;
+import java.util.*;
 import com.dash.model.Activite;
 import com.dash.model.Agent;
 import com.dash.model.Statut;
@@ -14,12 +15,25 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.util.Duration;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
+import javafx.scene.control.TableView;
+import java.io.FileWriter;
+import java.time.LocalDateTime;
+
+import javafx.scene.control.Alert;
+import javafx.application.Platform;
 
 public class DashboardController {
 
     @FXML private Label lblWelcome;
     @FXML private Label lblCurrentStatus;
     @FXML private Label lblTimer;
+
+    @FXML private TableView<Activite> tableHistorique;
+    @FXML private PieChart pieChart;
+    private ObservableList<Activite> historiqueData = FXCollections.observableArrayList();
 
     private Agent agent;
     private ActiviteDAO activiteDAO = new ActiviteDAO();
@@ -32,6 +46,34 @@ public class DashboardController {
         lblWelcome.setText("Bienvenue, " + agent.getPrenom() + " !");
         lblCurrentStatus.setText("Hors ligne");
         startTimer();
+
+        historiqueData.setAll(activiteDAO.getHistoriqueAujourdHui(agent.getId()));
+        tableHistorique.setItems(historiqueData);
+        updateChart();
+    }
+
+    private void updateChart() {
+        Map<String, Long> temps = activiteDAO.getTempsParStatut(agent.getId());
+        ObservableList<PieChart.Data> pieData = FXCollections.observableArrayList();
+        temps.forEach((libelle, secondes) -> {
+            double heures = secondes / 3600.0;
+            pieData.add(new PieChart.Data(libelle + " (" + String.format("%.1f", heures) + "h)", heures));
+        });
+        pieChart.setData(pieData);
+    }
+
+    @FXML
+    private void exportCSV() {
+        try (FileWriter writer = new FileWriter("rapport_" + agent.getLogin() + "_" + LocalDateTime.now() + ".csv")) {
+            writer.write("Début,Fin,Statut,Durée\n");
+            for (Activite a : historiqueData) {
+                writer.write(a.getDebutStr() + "," + a.getFinStr() + "," + a.getStatut() + "," + a.getDuree() + "\n");
+            }
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Exporté avec succès !");
+            alert.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML private void handleLogout() {
@@ -86,6 +128,12 @@ public class DashboardController {
 
         // 3. UI
         lblCurrentStatus.setText(libelle);
+
+        // 4. Rafraîchit historique + graphique
+        Platform.runLater(() -> {
+            historiqueData.setAll(activiteDAO.getHistoriqueAujourdHui(agent.getId()));
+            updateChart();
+        });
     }
 
     private void startTimer() {
